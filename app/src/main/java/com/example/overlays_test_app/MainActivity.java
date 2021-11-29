@@ -49,102 +49,113 @@ public class MainActivity extends AppCompatActivity {
 
     switch(test_case) {
       case "LEAN_BACK": //TODO: fix action bar :(
-      /* Everything (status, app, nav bars) hidden but upon swipe down, swipe up, everything appears and stays */
-        int enabledOverlays =
-        // [THE PRIMERS] Set the content to appear under the system bars so that the
-        // content doesn't resize when the system bars hide and show. (https://developer.android.com/training/system-ui/immersive)
-        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-             View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-             // below: justifies app content behind status bar, so that when it hides, the content does not have to resize
-            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-       // [THE JOB] Hide the nav bar and status bar
-            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hides the navigation bar on the bottom
-            | View.SYSTEM_UI_FLAG_FULLSCREEN; // makes the content full screen (no top status bar nor title bar)
-
-        // view.setSystemUiVisibility(enabledOverlays);
+        /* OLD */
+        /* Everything (status, app, nav bars) hidden but upon swipe down, swipe up, everything appears and stays */
+       //  int enabledOverlays =
+       //  // [THE PRIMERS] Set the content to appear under the system bars so that the
+       //  // content doesn't resize when the system bars hide and show. (https://developer.android.com/training/system-ui/immersive)
+       //  View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+       //       View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+       //       // below: justifies app content behind status bar, so that when it hides, the content does not have to resize
+       //      | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+       // // [THE JOB] Hide the nav bar and status bar
+       //      | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hides the navigation bar on the bottom
+       //      | View.SYSTEM_UI_FLAG_FULLSCREEN; // makes the content full screen (no top status bar nor title bar)
        //
+       //  // view.setSystemUiVisibility(enabledOverlays);
+
+        /* NEW */
         WindowCompat.setDecorFitsSystemWindows(window, false);
         windowInsetsControllerCompat.setSystemBarsBehavior(
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         windowInsetsControllerCompat.hide(WindowInsetsCompat.Type.systemBars());
-       //  LayoutParams lp = (LayoutParams) view.getLayoutParams();
+
+        /* EXPERIMENT */
+        //  LayoutParams lp = (LayoutParams) view.getLayoutParams();
        //  lp.setFitInsetsTypes(WindowInsets.Type.systemBars());
 
         // windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars() | WindowInsets.Type.statusBars());
         //
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
-          Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-          // Apply the insets as a margin to the view. Here the system is setting
-          // only the bottom, left, and right dimensions, but apply whichever insets are
-          // appropriate to your layout. You can also update the view padding
-          // if that's more appropriate.
-          //  windowInsetsControllerCompat.hide(WindowInsetsCompat.Type.systemBars());
-
-          LayoutParams lp = (LayoutParams) v.getLayoutParams();
-          // lp.setFitInsetsTypes(WindowInsets.Type.systemBars());
-
-          Log.e("INSETS", insets.toString());
-          Log.e("LAYOUT_PARAMS", String.valueOf(lp.verticalMargin));
-          // mlp.leftMargin = insets.left;
-          // lp.horizontalMargin = insets.left;
-          // mlp.bottomMargin = insets.bottom;
-          lp.verticalMargin = 100;
-          // mlp.rightMargin = insets.right;
-          v.setLayoutParams(lp);
-          Log.e("LAYOUT_PARAMS", String.valueOf(lp.verticalMargin));
-
-          // v.setLayoutParams(lp);
-
-          // windowInsetsControllerCompat.hide(WindowInsetsCompat.Type.statusBars());
-
-
-          // Return CONSUMED if you don't want want the window insets to keep being
-          // passed down to descendant views.
-          return WindowInsetsCompat.CONSUMED;
-        });
+        // ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
+        //   Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+        //   // Apply the insets as a margin to the view. Here the system is setting
+        //   // only the bottom, left, and right dimensions, but apply whichever insets are
+        //   // appropriate to your layout. You can also update the view padding
+        //   // if that's more appropriate.
+        //   //  windowInsetsControllerCompat.hide(WindowInsetsCompat.Type.systemBars());
+        //
+        //   LayoutParams lp = (LayoutParams) v.getLayoutParams();
+        //   // lp.setFitInsetsTypes(WindowInsets.Type.systemBars());
+        //
+        //   Log.e("INSETS", insets.toString());
+        //   Log.e("LAYOUT_PARAMS", String.valueOf(lp.verticalMargin));
+        //   // mlp.leftMargin = insets.left;
+        //   // lp.horizontalMargin = insets.left;
+        //   // mlp.bottomMargin = insets.bottom;
+        //   lp.verticalMargin = 100;
+        //   // mlp.rightMargin = insets.right;
+        //   v.setLayoutParams(lp);
+        //   Log.e("LAYOUT_PARAMS", String.valueOf(lp.verticalMargin));
+        //
+        //   // v.setLayoutParams(lp);
+        //
+        //   // windowInsetsControllerCompat.hide(WindowInsetsCompat.Type.statusBars());
+        //
+        //
+        //   // Return CONSUMED if you don't want want the window insets to keep being
+        //   // passed down to descendant views.
+        //   return WindowInsetsCompat.CONSUMED;
+        // });
         // windowInsetsControllerCompat.hide(WindowInsets.Type.systemBars());
 
 
         break;
       case "IMMERSIVE": //TODO: fix action bar :(
+        /* OLD */
         /* Everything (status, app, nav bars) hidden but upon swipe down, swipe up, everything appears and stays */
-        enabledOverlays =
-            // the first line is the only difference between IMMERSIVE and LEAN_BACK
-            View.SYSTEM_UI_FLAG_IMMERSIVE
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
-         view.setSystemUiVisibility(enabledOverlays);
-      // window.setDecorFitsSystemWindows(false);
-      // windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
-      // windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
-      //   windowInsetsControllerCompat.setSystemBarsBehavior(
-      //       WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE); //verified this
-      //   windowInsetsControllerCompat.setSystemBarsBehavior(
-      //       WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_TOUCH);
+        // enabledOverlays =
+        //     // the first line is the only difference between IMMERSIVE and LEAN_BACK
+        //     View.SYSTEM_UI_FLAG_IMMERSIVE
+        //         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        //         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        //         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        //         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        //         | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        //  view.setSystemUiVisibility(enabledOverlays);
+
+        /* NEW */
+        window.setDecorFitsSystemWindows(false);
+      windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
+      windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
+        windowInsetsControllerCompat.setSystemBarsBehavior(
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE); //verified this
+        windowInsetsControllerCompat.setSystemBarsBehavior(
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_TOUCH);
 
 
         break;
       case "STICKY_IMMERSIVE": //TODO: fix action bar :(
-        enabledOverlays =
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        /* OLD */
+        // enabledOverlays =
+        //             View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        //                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        //                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        //                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        //                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        //                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        //
+        // view.setSystemUiVisibility(enabledOverlays);
 
-        view.setSystemUiVisibility(enabledOverlays);
-
-        // windowInsetsControllerCompat.setSystemBarsBehavior(
-        //     WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE); //verified
-        // window.setDecorFitsSystemWindows(false);
-        // windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
-        // windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
+        /* NEW */
+        windowInsetsControllerCompat.setSystemBarsBehavior(
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE); //verified
+        window.setDecorFitsSystemWindows(false);
+        windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
+        windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
         break;
+        
       case "EDGE_TO_EDGE": //TODO: verify accuracy :)
+        /* OLD */
         /* Everything present and everything is part of the app. Navigation bar in black though. Status bar same color as app bar. */
         // enabledOverlays =
         //     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -152,8 +163,10 @@ public class MainActivity extends AppCompatActivity {
         //         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         // view.setSystemUiVisibility(enabledOverlays);
 
+        /* NEW */
         WindowCompat.setDecorFitsSystemWindows(window, false);
-        //
+
+        /* EXPERIMENT */
         // ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
         //   Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
         //   // Apply the insets as a margin to the view. Here the system is setting
@@ -183,10 +196,9 @@ public class MainActivity extends AppCompatActivity {
         //   return WindowInsetsCompat.CONSUMED;
         // });
 
-
-
         break;
       case "OVERLAYS_STICKY_IMMERSIVE": //TODO: fix action bar :(
+        /* OLD */
         // enabledOverlays =
         //     DEFAULT_SYSTEM_UI
         //         | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -195,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
         // enabledOverlays |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY; //if tried in conjunction with next case, navigation bar just disappears, as expected
         // view.setSystemUiVisibility(enabledOverlays);
 
+        /* NEW */
         WindowCompat.setDecorFitsSystemWindows(window,false);
         windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
         windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
@@ -202,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         break;
       case "READD_TOP_OVERLAYS": //TODO: verify accuracy :)
+        /* OLD */
         // enabledOverlays =
         //     DEFAULT_SYSTEM_UI
         //         | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -212,14 +226,16 @@ public class MainActivity extends AppCompatActivity {
         //
         // view.setSystemUiVisibility(enabledOverlays);
 
-        // windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
-        // window.setDecorFitsSystemWindows(false);
-        // windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
-        //
-        // windowInsetsControllerCompat.show(WindowInsets.Type.statusBars());
+        /* NEW */
+        windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
+        window.setDecorFitsSystemWindows(false);
+        windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
+
+        windowInsetsControllerCompat.show(WindowInsets.Type.statusBars());
 
         break;
       case "READD_BOTTOM_OVERLAYS": //TODO: fix action bar :(
+        /* OLD */
         // enabledOverlays =
         //     DEFAULT_SYSTEM_UI
         //         | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -233,54 +249,54 @@ public class MainActivity extends AppCompatActivity {
         //                          | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
         // view.setSystemUiVisibility(enabledOverlays);
 
-        // WindowCompat.setDecorFitsSystemWindows(window, false);
-        // windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
-        // windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
-        //
-        //
-        // // windowInsetsControllerCompat.show(WindowInsets.Type.navigationBars());
+        /* NEW */
+        WindowCompat.setDecorFitsSystemWindows(window, false);
+        windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
+        windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
+
+
+        windowInsetsControllerCompat.show(WindowInsets.Type.navigationBars());
 
         break;
       case "JUST_DEFAULTS":
+        /* OLD */
         // view.setSystemUiVisibility(DEFAULT_SYSTEM_UI);
 
+        /* NEW */
         WindowCompat.setDecorFitsSystemWindows(window, false);
         break;
-      case "EXPERIMENT":
-          // WindowMetrics windowMetrics = getWindowManager().getCurrentWindowMetrics();
-          // Log.e("WINDOW_METRICS", windowMetrics.toString());
-          // WindowInsets windowInsets = windowMetrics.getWindowInsets();
-          // Log.e("WINDOW_INSETS", windowInsets.toString());
-          // Insets i = windowInsets.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.statusBars()); //TODO: windowinsetscompat vs windowinsets
-          // Log.e("INSETS_BABY", i.toString());
-
-        WindowCompat.setDecorFitsSystemWindows(window, false);
-
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
-          Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-          // Apply the insets as a margin to the view. Here the system is setting
-          // only the bottom, left, and right dimensions, but apply whichever insets are
-          // appropriate to your layout. You can also update the view padding
-          // if that's more appropriate.
-          MarginLayoutParams mlp = (MarginLayoutParams) v.getLayoutParams();
-          mlp.leftMargin = insets.left;
-          mlp.bottomMargin = insets.bottom;
-          mlp.rightMargin = insets.right;
-          v.setLayoutParams(mlp);
-
-          // Return CONSUMED if you don't want want the window insets to keep being
-          // passed down to descendant views.
-          return WindowInsetsCompat.CONSUMED;
-        });
-
-
-        // Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures());
-        // view.setPadding(insets.left, insets.top, insets.right, insets.bottom);
-
-
-
-        break;
+      // case "EXPERIMENT":
+      //     WindowMetrics windowMetrics = getWindowManager().getCurrentWindowMetrics();
+      //     Log.e("WINDOW_METRICS", windowMetrics.toString());
+      //     WindowInsets windowInsets = windowMetrics.getWindowInsets();
+      //     Log.e("WINDOW_INSETS", windowInsets.toString());
+      //     Insets i = windowInsets.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.statusBars()); //TODO: windowinsetscompat vs windowinsets
+      //     Log.e("INSETS_BABY", i.toString());
+      //
+      //   WindowCompat.setDecorFitsSystemWindows(window, false);
+      //
+      //   ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
+      //     Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+      //     // Apply the insets as a margin to the view. Here the system is setting
+      //     // only the bottom, left, and right dimensions, but apply whichever insets are
+      //     // appropriate to your layout. You can also update the view padding
+      //     // if that's more appropriate.
+      //     MarginLayoutParams mlp = (MarginLayoutParams) v.getLayoutParams();
+      //     mlp.leftMargin = insets.left;
+      //     mlp.bottomMargin = insets.bottom;
+      //     mlp.rightMargin = insets.right;
+      //     v.setLayoutParams(mlp);
+      //
+      //     // Return CONSUMED if you don't want want the window insets to keep being
+      //     // passed down to descendant views.
+      //     return WindowInsetsCompat.CONSUMED;
+      //   });
+      //
+      //   Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures());
+      //   view.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+      //   break;
       default: //TODO: fix action bar :(
+        /* OLD */
         // enabledOverlays =
         //     DEFAULT_SYSTEM_UI
         //         | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -288,9 +304,10 @@ public class MainActivity extends AppCompatActivity {
         //         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         // view.setSystemUiVisibility(enabledOverlays);
 
-        // windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
-        // windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
-        // window.setDecorFitsSystemWindows(false);
+        /* NEW */
+        windowInsetsControllerCompat.hide(WindowInsets.Type.statusBars());
+        windowInsetsControllerCompat.hide(WindowInsets.Type.navigationBars());
+        window.setDecorFitsSystemWindows(false);
 
         break;
     }
